@@ -1,0 +1,42 @@
+#+Title: global hotkey utility
+
+* start
+only run on macOS.
+: ./xboard.sh start
+
+* deps
+参考[[install-pylib.sh]] 文件
+
+另外deps目录下有 [[deps/gets.sh]] 和 [[deps/msg.sh]]
+
+* 配置文件
+[[hk.map]]
+
+* 启动进程
+: x-pylib/s -c $base_dir/hotkey2.py| $base_dir/sel.py $base_dir/hk.map ': (.*) ###%s' | $base_dir/feed2.py $base_dir/trigger.py
+说明:
+1. =x-pylib/s= 是用来获得root权限的。
+2. =hotkey2.py= 是用来捕获键盘的，检测到 =command= key被按下后，把接下来按下的第一个key打印到stdout。
+3. =sel.py hk.map...= 用来获得stdin的输入, 然后匹配hk.map的行，把匹配的行打印到stdout.
+4. =feed2.py= 用来把标准输入送给trigger.py, 主要目的是fork子进程。
+5. =trigger.py= 用来执行sel.py选择的命令。
+
+* trigger动作
+=hotkey2.py= 用来捕获hotkey， =trigger.py= 用来执行动作。其中trigger动作比较多，分为以下几种:
+
+** 启动进程
+: #!open emacs ###emacs
+
+** 打开url
+: #!url http://127.0.0.1:9111/xboard/capture.org ###view
+
+** 输入文本
+: #!send gpg_decrypt('~/.pass.gpg') ###pass
+
+** 选择文本
+: #!eval cat base.org | ./filt.py ###z
+这里之所以用个eval，因为 =filt.py= 只是把字符串打印到stdout，eval可以把字符串再次trigger，结果就模拟为键盘输入。
+
+** 捕获输入
+: #!python do_capture(self) ###capture
+: #!msg echo '$text' | ~/m/bin/conv.py guess ###query

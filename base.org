@@ -1,0 +1,20 @@
+#+Title: xboard base
+#-- line_pat=': (.+?)', init_filt='' --
+
+* abbrev
+: #!send 'set logging file a.txt\nset logging on\nset pagination off\nset print static-members off\nset print pretty on\n' ##gdb
+: #!send '#+begin_example\n\n#+end_example'
+
+* sql
+: select zone,count(1) from __all_server group by 1;
+: select table_id,table_name from __all_table where table_name like '%%';
+: select tenant_id,tenant_name from __all_tenant where tenant_name like '%%';
+: select svr_ip,count(1) from __all_meta_table group by 1;
+: select svr_ip,count(1) from __all_virtual_clog_stat where role='LEADER' group by 1;
+: select svr_ip, count(1) from __all_virtual_memstore_info where is_active=0 group by 1;
+: select * from __all_virtual_partition_sstable_merge_info where table_id=;
+: select * from  __all_virtual_tenant_memstore_info order by total_memstore_used desc limit 3;
+: select * from __all_rootservice_event_history where gmt_create > '2017-11-06' and module='major_freeze' limit 10;
+: select distinct table_id,partition_id from __all_meta_table except select distinct table_id,partition_idx from __all_virtual_clog_stat;
+: select * from __all_virtual_sql_audit where query_sql like '%%' limit 1;
+

