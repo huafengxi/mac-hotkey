@@ -9,16 +9,16 @@ import os
 import re
 import uuid
 import urllib
-import urllib2
+from urllib.request import urlopen
 
 #base_url = 'http://127.0.0.1:9111/capture'
 base_url = 'capture.txt'
 
 def make_url(path):
-    return '%s/%s'%(base_url, path)
+    return '{}/{}'.format(base_url, path)
 
 def http(url, **kw):
-    result = urllib2.urlopen(url, urllib.urlencode(kw), timeout=3).read()
+    result = urlopen(url, urllib.urlencode(kw), timeout=3).read()
     if re.match('.*Exception:', result):
         raise Exception(result)
     return result
@@ -45,14 +45,14 @@ def cap(*path):
 def put(*file_list):
     if not sys.stdin.isatty():
         file_name = file_list and file_list[0] or gen_file_name()
-        print upload(sys.stdin.read(), gen_file_name(file_name))
+        print(upload(sys.stdin.read(), gen_file_name(file_name)))
     else:
         for f in file_list:
-            print upload(open(f).read(), os.path.basename(f))
+            print(upload(open(f).read(), os.path.basename(f)))
 
 def help(msg=''):
-    print msg
-    print __doc__
+    print(msg)
+    print(__doc__)
 
 if __name__ == '__main__':
     len(sys.argv) >= 2  or help() or sys.exit(0)

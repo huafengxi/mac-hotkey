@@ -30,7 +30,7 @@ def set_text(text):
 def get_files():
     return []
 
-import StringIO
+from io import StringIO
 try:
     from PIL import ImageGrab
     enable_grab_img = True

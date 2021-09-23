@@ -19,14 +19,14 @@ def get_max_win_geometry(pid):
     win_list = get_sorted_win(pid)
     return win_list and win_list[-1] or None
 
-import pynput
-mouse = pynput.mouse.Controller()
-def mouse_move(x, y):
-    mouse.position = (x, y)
-
-g = get_max_win_geometry(get_apid())
-if g:
-    x, y, h, w = g
-    cx, cy = x + w/2, y + h/2
-    print 'geometry: x=%d y=%d h=%d w=%d cx=%d cy=%d'%(x, y, h, w, cx, cy)
-    mouse_move(cx, cy)
+#import pynput
+#mouse = pynput.mouse.Controller()
+#def mouse_move(x, y):
+#    mouse.position = (x, y)
+#
+#g = get_max_win_geometry(get_apid())
+#if g:
+#    x, y, h, w = g
+#    cx, cy = x + w/2, y + h/2
+#    print 'geometry: x=%d y=%d h=%d w=%d cx=%d cy=%d'%(x, y, h, w, cx, cy)
+#    mouse_move(cx, cy)

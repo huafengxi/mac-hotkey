@@ -31,14 +31,14 @@ def first(iter):
 
 def outline(line):
     if line:
-	sys.stdout.write(line)
+        sys.stdout.write(line + '\n')
         sys.stdout.flush()
 
 def help():
-    print __doc__
+    print(__doc__)
 
 len(sys.argv) >= 2 or help() or sys.exit(1)
 pat_pat = len(sys.argv) >= 3 and sys.argv[2] or '%s'
 for pat in iter_pat(pat_pat, iter_line(sys.stdin)):
-    matchs = (match_line(pat, line) for line in file(sys.argv[1]))
+    matchs = (match_line(pat, line) for line in open(sys.argv[1]))
     outline(first(matchs))

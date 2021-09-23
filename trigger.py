@@ -19,7 +19,7 @@ import time
 import clipboard
 
 class Exc(str): pass
-class Paste(unicode): pass
+class Paste(str): pass
 class Send(str): pass
 
 def gets(): return subprocess.Popen('deps/gets.sh', shell=True, stdout=subprocess.PIPE).communicate()[0].strip()
@@ -46,7 +46,7 @@ def do_tag_capture(self):
     def capture_filt(text):
         tag = gets()
         if not tag: return
-        return '%s ###%s'%(text, tag)
+        return '{} ###{}'.format(text, tag)
     capture.capture('capture.org', capture_filt)
     return 'reload_board("", True)'
 
@@ -63,7 +63,7 @@ class Trigger:
                 text = text[:i].strip()
             return text
         text = self.sub(remove_comment(text))
-        print('trigger: {}'.format%(text))
+        print('trigger: {}'.format(text))
         try:
             result = self.magic_process(text)
         except Exception as e:
@@ -121,15 +121,15 @@ def magic_sh(self, code):
 
 from pynput.mouse import Controller
 def magic_open(self, code):
-    os.system('''open -a "%s"'''%(code))
+    os.system('''open -a "{}"'''.format(code))
     time.sleep(0.2)
     os.system('deps/mouse-focus.py')
 
 def magic_url(self, url):
-    return magic_sh(self, """open -a "Google Chrome" '%s'"""%(url))
+    return magic_sh(self, """open -a "Google Chrome" '{}'""".format(url))
 
 def magic_popup(self, url):
-    return magic_sh(self, 'open -a "Google Chrome" --app=%s'%(url))
+    return magic_sh(self, 'open -a "Google Chrome" --app={}'.format(url))
 
 def gpg_decrypt(text):
     return subprocess.Popen(['gpg', '-d', os.path.expanduser(text)], stdout=subprocess.PIPE).communicate()[0]
@@ -144,7 +144,7 @@ def add_prefix(text, prefix='   '):
     return re.sub('(?m)^', prefix, text)
 
 def del_prefix(text, prefix=' +'):
-    return re.sub('(?m)^%s'%(prefix), '', text)
+    return re.sub('(?m)^{}'.format(prefix), '', text)
 
 def create_anchor(text):
     return re.sub('^(\S+) *((?:http|https)://\S+)', r'[[\2][\1]]', text)
@@ -206,10 +206,10 @@ def paste_prev(fname):
     write_file(fname, text)
     return Paste(m.group(1))
 
-import parser
+import ast
 def is_expr(expr):
     try:
-        parser.expr(expr)
+        ast.parse(expr, mode='eval')
         return True
     except Exception as e:
         return False
@@ -222,11 +222,11 @@ def filt_by_input(v):
     if is_expr(code):
         return eval(code)
     else:
-        exec code
+        exec(code)
         return r
 
 def help():
-    print __doc__
+    print(__doc__)
 import sys
 if __name__ == '__main__':
     not sys.stdin.isatty() or help() or sys.exit(1)

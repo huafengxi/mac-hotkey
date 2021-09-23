@@ -9,7 +9,7 @@ class NotMatch(Exception):
 
 def try_upload_file():
     files = clipboard.get_files()
-    print 'upload files: %s'%(repr(files))
+    print('upload files: {}'.format(repr(files)))
     return '\n'.join(upload.upload(open(f, "rb").read(), os.path.basename(f)) for f in files)
 
 def try_get_clipboard_text():
@@ -20,7 +20,7 @@ def try_upload_clipboard_img():
     if png:
         return upload.upload(png, upload.gen_file_name('xxx.png'))
     else:
-        print "capture no img"
+        print("capture no img")
         return ''
 
 def try_append_text(text, fname):

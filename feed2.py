@@ -9,14 +9,14 @@ def iter_line(f):
             break
         yield line
  
-def help():
-    print __doc__
+def help(): print(__doc__)
 import os
 import sys
 import subprocess
 len(sys.argv) == 2 or help() or sys.exit(1)
 for line in iter_line(sys.stdin):
-    print('feed: {}'.format(line))
+    sys.stdout.write('feed: {}'.format(line))
+    sys.stdout.flush()
     if os.fork() == 0:
-        subprocess.Popen(sys.argv[1], shell=True, stdin=subprocess.PIPE).communicate(line)
+        subprocess.Popen(sys.argv[1], shell=True, stdin=subprocess.PIPE).communicate(line.encode('utf-8'))
         sys.exit(0)

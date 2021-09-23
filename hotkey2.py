@@ -59,6 +59,6 @@ if __name__ == '__main__':
         sys.stdout.write('{}\n'.format(char))
         sys.stdout.flush()
     regist(callback).start()
-    sys.stderr.write("hotkey start at {}".format(time.strftime("%y-%m-%d %H:%M:%S")))
+    sys.stderr.write("hotkey start at {}\n".format(time.strftime("%y-%m-%d %H:%M:%S")))
     while True:
         time.sleep(10)
