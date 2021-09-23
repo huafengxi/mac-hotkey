@@ -20,10 +20,10 @@ import clipboard
 
 class Exc(str): pass
 class Paste(str): pass
-class Send(bytes): pass
+class Send(str): pass
 
 def gets(): return subprocess.Popen('deps/gets.sh', shell=True, stdout=subprocess.PIPE).communicate()[0].strip()
-def msg(text): subprocess.Popen('deps/msg.sh', shell=True, stdin=subprocess.PIPE).communicate(text)
+def msg(text): subprocess.Popen('deps/msg.sh', shell=True, stdin=subprocess.PIPE).communicate(text.encode('utf-8'))
 def handle_text(text):
     if text == None:
         return ''
@@ -132,7 +132,7 @@ def magic_popup(self, url):
     return magic_sh(self, 'open -a "Google Chrome" --app={}'.format(url))
 
 def gpg_decrypt(text):
-    return subprocess.Popen(['gpg', '-d', os.path.expanduser(text)], stdout=subprocess.PIPE).communicate()[0]
+    return subprocess.Popen(['gpg', '-d', os.path.expanduser(text)], stdout=subprocess.PIPE).communicate()[0].decode('utf-8')
 
 def squeeze_space(text):
     return re.sub('[\n\r]+', '\n', re.sub('(\S)[ \t]+', r'\1 ', text))

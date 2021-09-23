@@ -1,4 +1,4 @@
-#+Title: global hotkey utility
+#+Title: global hotkey for MacOS
 
 * what can hotkey do
 switch app
@@ -15,7 +15,7 @@ enter common used snippet
 2. =cmd-i= install your common used script
 3. =cmd-z= popup snippet list, select line interactivly.
 
-* start
+* launch
 only run on macOS.
 : git clone git@github.com:huafengxi/mac-hotkey.git
 : mac-hotkey/mac-hotkey.sh local_setup
