@@ -1,12 +1,12 @@
 #!/bin/bash
 url=$r7
 function help() {
-  echo "bash <(curl -s -N $url/xboard.sh) setup # download from url"
-	echo "./xboard.sh start"
-	echo "./xboard.sh stop"
-	echo "./xboard.sh publish [x-pylib]"
-	echo "./xboard.sh remote_setup"
-	echo "./xboard.sh local_setup"
+  echo "bash <(curl -s -N $url/mac-hotkey.sh) setup # download from url"
+	echo "./mac-hotkey.sh start"
+	echo "./mac-hotkey.sh stop"
+	echo "./mac-hotkey.sh publish [x-pylib]"
+	echo "./mac-hotkey.sh remote_setup"
+	echo "./mac-hotkey.sh local_setup"
 }
 
 function publish() {
@@ -15,7 +15,7 @@ function publish() {
     if [ "$1" == 'x-pylib' ]; then
        tar zc --exclude='*.pyc' --exclude='*/.*' --exclude='*.log' x-pylib -O | oss.sh put ~/p/x-pylib.tar.gz
     fi
-    oss.sh put $base_dir/xboard.sh
+    oss.sh put $base_dir/mac-hotkey.sh
 }
 
 function get() {
@@ -47,10 +47,10 @@ function local_install_pylib() {
 function local_start() {
    if ./checkdeps.py && x-pylib/s; then
        echo "start hotkey in background"
-       nohup ./xboard.sh start >/tmp/hotkey.log 2>&1 & 
+       nohup ./mac-hotkey.sh start >/tmp/hotkey.log 2>&1 & 
    else
        echo "checkdeps fail"
-       echo "xboard/xboard.sh start # start hotkey manually"
+       echo "mac-hotkey/mac-hotkey.sh start # start hotkey manually"
        return 1
    fi
 }

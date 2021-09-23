@@ -3,8 +3,7 @@
 * start
 only run on macOS.
 : git clone git@github.com:huafengxi/mac-hotkey.git
-: cd mac-hotkey
-: ./xboard.sh start
+: mac-hotkey/mac-hotkey.sh local_setup
 ** deps
 see [[install-pylib.sh]]
 
@@ -16,10 +15,9 @@ see [[install-pylib.sh]]
 * how hotkey works
   multiple process connected by pipe, each process just do one simple task.
 
-The most important 3 scripts:
+The most important 2 scripts, you can test each script for debugging.
 1. =hotkey2.py= capture hotkey
-2.  =sel.py= select actions
-3.  =trigger.py= do actions。
+2. =trigger.py= do actions。
 
 The actual launch command:
 : x-pylib/s -c $base_dir/hotkey2.py| $base_dir/sel.py $base_dir/hk.map ': (.*) ###%s' | $base_dir/feed2.py $base_dir/trigger.py
