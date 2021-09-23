@@ -15,10 +15,10 @@ def try_upload_file():
 def try_get_clipboard_text():
     return clipboard.get_text()
 
-def try_upload_clipboard_img():
+def try_upload_clipboard_img(base_dir):
     png = clipboard.get_png()
     if png:
-        return upload.upload(png, upload.gen_file_name('xxx.png'))
+        return upload.upload(png, base_dir + '/' + upload.gen_file_name('xxx.png'))
     else:
         print("capture no img")
         return ''
@@ -38,15 +38,14 @@ def format_text(text):
 
 def capture(url, capture_filt):
     clipboard.do_copy()
-    upload.base_url = os.path.dirname(url)
-    fname = os.path.basename(url)
+    base_url = os.path.dirname(url)
     text = try_get_clipboard_text()
     text = capture_filt(text)
     path_list = try_upload_file()
     if path_list:
         clipboard.set_text(path_list)
-    path = try_upload_clipboard_img()
+    path = try_upload_clipboard_img(base_url)
     if path:
         clipboard.set_text(path)
     text_to_append = format_text(text) + '\n'.join(format_link(path) for path in path_list.split('\n')) + format_link(path)
-    return try_append_text(text_to_append, fname)
+    return try_append_text(text_to_append, url)

@@ -11,12 +11,6 @@ import uuid
 import urllib
 from urllib.request import urlopen
 
-#base_url = 'http://127.0.0.1:9111/capture'
-base_url = 'capture.txt'
-
-def make_url(path):
-    return '{}/{}'.format(base_url, path)
-
 def http(url, **kw):
     result = urlopen(url, urllib.urlencode(kw), timeout=3).read()
     if re.match('.*Exception:', result):

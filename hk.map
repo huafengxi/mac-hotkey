@@ -2,16 +2,15 @@
 #-- line_pat=': (.+?)', init_filt='###' --
 
 * board ctrl
-: #!url http://127.0.0.1:9111/xboard/capture.org ###view captured file
+: #!dir capture ###view captured file
 : #!eval cat snippet.txt | ./filt.py ###z
 
 * window ctrl
-: #!open emacs ###emacs
-: #!open Google Chrome ###browser
-: #!open Safari ###safari
-: #!open iterm ###tty
-: #!open DingTalk ###ding
-: #!sh open ~ ###h
+: #!launch emacs ###emacs
+: #!launch Google Chrome ###browser
+: #!launch iterm ###tty
+: #!launch DingTalk ###ding
+: #!dir ~ ###h
 
 * special
 : r7=http://xxx.xxx.xxx.xxx && . <(curl -s $r7/setup.sh) ###install remote launcher

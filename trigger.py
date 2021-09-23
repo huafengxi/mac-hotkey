@@ -39,7 +39,7 @@ def handle_text(text):
 import capture
 def do_capture(self):
     def capture_filt(text): return text
-    capture.capture('capture.org', capture_filt)
+    capture.capture('capture/capture.txt', capture_filt)
     return 'reload_board("", True)'
 
 def do_tag_capture(self):
@@ -120,10 +120,12 @@ def magic_sh(self, code):
     os.system(code)
 
 from pynput.mouse import Controller
-def magic_open(self, code):
+def magic_launch(self, code):
     os.system('''open -a "{}"'''.format(code))
     time.sleep(0.2)
     os.system('deps/mouse-focus.py')
+def magic_dir(self, code):
+    os.system('''open "{}"'''.format(code))
 
 def magic_url(self, url):
     return magic_sh(self, """open -a "Google Chrome" '{}'""".format(url))
