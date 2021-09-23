@@ -1,7 +1,6 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 '''
 cat a.txt | ./filt.py
-./filt.py <port> # run as daemon; cat a.txt | nc 127.0.0.1 -p <port>
 '''
 import sys
 sys.path.extend(['x-pylib'])
@@ -56,7 +55,6 @@ def parse_lines(text, reg_pat):
 
 
 import threading
-import Queue
 class ResultGet:
     def __init__(self):
         self.x, self.is_end, self.c = None, False, threading.Condition()
@@ -169,7 +167,7 @@ class MyForm(wx.Frame):
             self.Hide()
         else:
             for idx, line in enumerate(items):
-                self.list_ctrl.InsertStringItem(idx, line)
+                self.list_ctrl.InsertItem(idx, line)
 
 def filt(text):
     def safe_eval(code):
@@ -187,37 +185,21 @@ def filt(text):
     opt = parse_opt(text)
     return frame.filt(parse_lines(text, opt['line_pat']), opt['init_filt'])
 
-
-import SocketServer
-class MyTCPHandler(SocketServer.BaseRequestHandler):
-    def handle(self):
-        self.data = self.request.recv(65536).strip()
-        self.request.sendall(filt(self.data))
-
-def start_filt_server(port):
-    server = SocketServer.TCPServer(('127.0.0.1', port), MyTCPHandler)
-    t = threading.Thread(target = lambda : server.serve_forever())
-    t.daemon = True
-    t.start()
-
 def start_filt_thread(text):
     def filt_and_print():
         out = filt(text)
         frame.Close()
-        print out
+        print(out)
     t = threading.Thread(target=filt_and_print)
     t.daemon = True
     t.start()
 
 def help():
-    print __doc__
+    print(__doc__)
 
 if __name__ == "__main__":
     (not sys.stdin.isatty() or len(sys.argv) == 2) or help() or sys.exit(1)
     app = wx.App(False)
     frame = MyForm()
-    if len(sys.argv) >= 2:
-        start_filt_server(int(sys.argv[1]))
-    else:
-        start_filt_thread(sys.stdin.read())
+    start_filt_thread(sys.stdin.read())
     app.MainLoop()

@@ -109,11 +109,11 @@ def magic_python(self, code):
         return Exc(traceback.format_exc())
 
 def magic_eval(self, code):
-    output = subprocess.Popen(code, shell=True, stdout=subprocess.PIPE).communicate()[0]
+    output = subprocess.Popen(code, shell=True, stdout=subprocess.PIPE).communicate()[0].decode('utf-8')
     return self(output)
 
 def magic_msg(self, cmd):
-    output = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE).communicate()[0]
+    output = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE).communicate()[0].decode('utf-8')
     msg(output)
     
 def magic_sh(self, code):

@@ -30,7 +30,7 @@ def set_text(text):
 def get_files():
     return []
 
-from io import StringIO
+from io import BytesIO
 try:
     from PIL import ImageGrab
     enable_grab_img = True
@@ -41,7 +41,7 @@ def get_png():
         return ''
     im = ImageGrab.grabclipboard()
     if im:
-      f = StringIO.StringIO()
+      f = BytesIO()
       im.save(f, 'PNG')
       return f.getvalue()
     else:
