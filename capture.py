@@ -49,4 +49,4 @@ def capture(url, capture_filt):
     if path:
         clipboard.set_text(path)
     text_to_append = format_text(text) + '\n'.join(format_link(path) for path in path_list.split('\n')) + format_link(path)
-    return try_append_text(text_to_append.encode('utf8'), fname)
+    return try_append_text(text_to_append, fname)
