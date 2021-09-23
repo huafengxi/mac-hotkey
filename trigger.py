@@ -20,7 +20,7 @@ import clipboard
 
 class Exc(str): pass
 class Paste(str): pass
-class Send(str): pass
+class Send(bytes): pass
 
 def gets(): return subprocess.Popen('deps/gets.sh', shell=True, stdout=subprocess.PIPE).communicate()[0].strip()
 def msg(text): subprocess.Popen('deps/msg.sh', shell=True, stdin=subprocess.PIPE).communicate(text)

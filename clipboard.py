@@ -4,7 +4,7 @@ import pyperclip
 import pyautogui
 def send_keys(text):
     time.sleep(0.1)
-    pyautogui.typewrite(text)
+    pyautogui.typewrite(text.decode('utf-8'))
 
 def send_text(text):
     paste(text)

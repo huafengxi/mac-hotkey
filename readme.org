@@ -1,5 +1,20 @@
 #+Title: global hotkey utility
 
+* what can hotkey do
+switch app
+1. =cmd-b= switch to browser
+2. =cmd-t= swith to iterm2
+3. =cmd-e= swith to emacs
+
+capture
+1. =cmd-c= capture selected text/img
+2. =cmd-v= view captured text/img
+
+enter common used snippet
+1. =cmd-p= enter passwd
+2. =cmd-i= install your common used script
+3. =cmd-z= popup snippet list, select line interactivly.
+
 * start
 only run on macOS.
 : git clone git@github.com:huafengxi/mac-hotkey.git
