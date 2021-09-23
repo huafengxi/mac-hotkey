@@ -15,7 +15,11 @@ see [[install-pylib.sh]]
 
 * how hotkey works
   multiple process connected by pipe, each process just do one simple task.
-In short, =hotkey2.py= capture hotkey， =sel.py= select actions, =trigger.py= do actions。
+
+The most important 3 scripts:
+1. =hotkey2.py= capture hotkey
+2.  =sel.py= select actions
+3.  =trigger.py= do actions。
 
 The actual launch command:
 : x-pylib/s -c $base_dir/hotkey2.py| $base_dir/sel.py $base_dir/hk.map ': (.*) ###%s' | $base_dir/feed2.py $base_dir/trigger.py
