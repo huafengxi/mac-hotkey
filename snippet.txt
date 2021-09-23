@@ -1,4 +1,3 @@
-#+Title: xboard base
 #-- line_pat=': (.+?)', init_filt='' --
 
 * abbrev

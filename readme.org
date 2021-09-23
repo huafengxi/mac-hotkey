@@ -2,41 +2,49 @@
 
 * start
 only run on macOS.
+: git clone git@github.com:huafengxi/mac-hotkey.git
+: cd mac-hotkey
 : ./xboard.sh start
+** deps
+see [[install-pylib.sh]]
 
-* deps
-参考[[install-pylib.sh]] 文件
+[[deps/gets.sh]] and [[deps/msg.sh]] are also used by =trigger.py=
 
-另外deps目录下有 [[deps/gets.sh]] 和 [[deps/msg.sh]]
+* hotkey config
+[[hk.map]], see trigger actions.
 
-* 配置文件
-[[hk.map]]
+* how hotkey works
+  multiple process connected by pipe, each process just do one simple task.
+In short, =hotkey2.py= capture hotkey， =sel.py= select actions, =trigger.py= do actions。
 
-* 启动进程
+The actual launch command:
 : x-pylib/s -c $base_dir/hotkey2.py| $base_dir/sel.py $base_dir/hk.map ': (.*) ###%s' | $base_dir/feed2.py $base_dir/trigger.py
-说明:
-1. =x-pylib/s= 是用来获得root权限的。
-2. =hotkey2.py= 是用来捕获键盘的，检测到 =command= key被按下后，把接下来按下的第一个key打印到stdout。
-3. =sel.py hk.map...= 用来获得stdin的输入, 然后匹配hk.map的行，把匹配的行打印到stdout.
-4. =feed2.py= 用来把标准输入送给trigger.py, 主要目的是fork子进程。
-5. =trigger.py= 用来执行sel.py选择的命令。
+1. =x-pylib/s= is used to gain root privilege.
+2. =hotkey2.py= is used to detect hotkey，after =command= key is clicked, print the following <key> to stdout.
+3. =sel.py hk.map...= dump the lines in file =hk.map= which matches pattern given by stdin.
+4. =feed2.py= feed the stdin to =trigger.py=, exec =trigger.py= after fork.
+5. =trigger.py= do hotkey action select by =sel.py=
 
-* trigger动作
-=hotkey2.py= 用来捕获hotkey， =trigger.py= 用来执行动作。其中trigger动作比较多，分为以下几种:
-
-** 启动进程
+* trigger actions
+** launch process
 : #!open emacs ###emacs
 
-** 打开url
+** open url
 : #!url http://127.0.0.1:9111/xboard/capture.org ###view
 
-** 输入文本
+** send text(emulate key sequence)
 : #!send gpg_decrypt('~/.pass.gpg') ###pass
 
-** 选择文本
-: #!eval cat base.org | ./filt.py ###z
-这里之所以用个eval，因为 =filt.py= 只是把字符串打印到stdout，eval可以把字符串再次trigger，结果就模拟为键盘输入。
+** select line from common used snippets
+: #!eval cat snippet.txt | ./filt.py ###z
+here =filt.py= will popup a window, and show snippets, the selected snippet will be print to stdout by =filt.py=
 
-** 捕获输入
+with =#!eval= ,snippet will be treat as trigger action again,  in this case, the text is send to focused window.
+
+** capture select text/img
+and save to =mac-hotkey/capture.org=
 : #!python do_capture(self) ###capture
-: #!msg echo '$text' | ~/m/bin/conv.py guess ###query
+
+** send select text to script
+and show result in popup message box.
+: #!msg echo '$text' | ~/bin/conv.py guess ###query

@@ -2,8 +2,8 @@
 #-- line_pat=': (.+?)', init_filt='###' --
 
 * board ctrl
-: #!url http://127.0.0.1:9111/xboard/capture.org ###view
-: #!eval cat base.org | ./filt.py ###z
+: #!url http://127.0.0.1:9111/xboard/capture.org ###view captured file
+: #!eval cat snippet.txt | ./filt.py ###z
 
 * window ctrl
 : #!open emacs ###emacs
@@ -14,7 +14,7 @@
 : #!sh open ~ ###h
 
 * special
-: r7=http://121.36.97.201 && . <(curl -s $r7/setup.sh) ###install remote launcher
+: r7=http://xxx.xxx.xxx.xxx && . <(curl -s $r7/setup.sh) ###install remote launcher
 : #!send 'huafengxi@gmail.com' ###m
 : #!send gpg_decrypt('~/.pass.gpg') ###pass echo '<pass>' | gpg -r huafengxi@gmail.com -a -o ~/.pass.gpg -e
 
