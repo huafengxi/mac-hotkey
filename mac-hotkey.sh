@@ -1,24 +1,12 @@
 #!/bin/bash
-url=$r7
 function help() {
 	echo "./mac-hotkey.sh local_setup"
 	echo "./mac-hotkey.sh stop"
 }
 
-function get() {
-    if [[ $1 == http* ]]; then
-        curl -s -N $1
-    else
-        cat $1
-    fi
-}
-
-function local_install_pylib() {
+function local_setup() {
    echo "install-pylib"
    ./install-pylib.sh
-}
-
-function local_start() {
    if ./checkdeps.py && x-pylib/s; then
        echo "start hotkey in background"
        nohup ./mac-hotkey.sh start >/tmp/hotkey.log 2>&1 & 
@@ -27,11 +15,6 @@ function local_start() {
        echo "mac-hotkey/mac-hotkey.sh start # start hotkey manually"
        return 1
    fi
-}
-
-function local_setup() {
-   local_install_pylib
-   local_start
 }
 
 function start() {
