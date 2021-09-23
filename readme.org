@@ -2,7 +2,7 @@
 
 * what can hotkey do
 switch app
-1. =cmd-b= switch to browser
+1. =cmd-b= switch to browser (first =cmd= , then  =b=, not press two key at the same time)
 2. =cmd-t= swith to iterm2
 3. =cmd-e= swith to emacs
 
