@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 '''
 echo <pat> | ./sel.py file '%s'
 '''
@@ -31,7 +31,7 @@ def first(iter):
 
 def outline(line):
     if line:
-        print line
+	sys.stdout.write(line)
         sys.stdout.flush()
 
 def help():

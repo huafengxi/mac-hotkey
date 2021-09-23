@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 '''
 ./hotkey2.py
 '''
@@ -55,10 +55,10 @@ import sys
 import traceback
 if __name__ == '__main__':
     def callback(char):
-        sys.stderr.write("hotkey: %s\n"%(char))
-        sys.stdout.write('%s\n'%(char))
+        sys.stderr.write("hotkey: {}\n".format(char))
+        sys.stdout.write('{}\n'.format(char))
         sys.stdout.flush()
     regist(callback).start()
-    sys.stderr.write("hotkey start at %s"%(time.strftime("%y-%m-%d %H:%M:%S")))
+    sys.stderr.write("hotkey start at {}".format(time.strftime("%y-%m-%d %H:%M:%S")))
     while True:
         time.sleep(10)

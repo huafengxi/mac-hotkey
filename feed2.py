@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 '''
 cat a.txt | ./feed2.py ./trigger.py
 '''
@@ -16,7 +16,7 @@ import sys
 import subprocess
 len(sys.argv) == 2 or help() or sys.exit(1)
 for line in iter_line(sys.stdin):
-    print 'feed: %s'%(line)
+    print('feed: {}'.format(line))
     if os.fork() == 0:
         subprocess.Popen(sys.argv[1], shell=True, stdin=subprocess.PIPE).communicate(line)
         sys.exit(0)

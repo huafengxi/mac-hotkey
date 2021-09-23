@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 '''
@@ -55,7 +55,7 @@ import clipboard
 class Trigger:
     def __call__(self, text):
         if not text:
-            print 'handle empty cmd'
+            print('handle empty cmd')
             return
         def remove_comment(text):
             i = text.find('##')
@@ -63,7 +63,7 @@ class Trigger:
                 text = text[:i].strip()
             return text
         text = self.sub(remove_comment(text))
-        print 'trigger: %s'%(text)
+        print('trigger: {}'.format%(text))
         try:
             result = self.magic_process(text)
         except Exception as e:
@@ -218,7 +218,7 @@ def filt_by_input(v):
     code = gets()
     if not code:
         return v
-    print 'input_code=%s'%(code)
+    print('input_code={}'.format(code))
     if is_expr(code):
         return eval(code)
     else:

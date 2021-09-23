@@ -24,7 +24,7 @@ function start() {
 
 function stop() {
 	echo "stop hotkey"
-	pkill -9 -f $base_dir/hotkey2.py
+	$base_dir/x-pylib/s -c "pkill -9 -f $base_dir/hotkey2.py"
 }
 
 exit_trap () {
