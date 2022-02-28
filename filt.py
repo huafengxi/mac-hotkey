@@ -20,7 +20,7 @@ class FocusSteal:
         # AppKit.NSApplication.sharedApplication().deactivate()
     def unhide(self):
         self.last = AppKit.NSWorkspace.sharedWorkspace().frontmostApplication()
-        AppKit.NSApplication.sharedApplication().unhide()
+        # AppKit.NSApplication.sharedApplication().unhide()
     def focus(self):
         AppKit.NSApplication.sharedApplication().activateIgnoringOtherApps_(True)
     def unfocus(self):

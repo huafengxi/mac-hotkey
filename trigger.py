@@ -81,7 +81,7 @@ class Trigger:
     def sub(self, text, **kw):
         if '$text' in text or '$qtext' in text:
             copyed = self.copy()
-            kw.update(text=copyed, qtext=urllib.quote_plus(copyed))
+            kw.update(text=copyed, qtext=urllib.parse.quote_plus(copyed))
         return string.Template(text).safe_substitute(kw)
 
 def magic_post(self, text):
