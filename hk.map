@@ -8,8 +8,8 @@
 * window ctrl
 : #!launch emacs ###emacs
 : #!launch Google Chrome ###browser
-: #!launch iterm ###tty
-: #!launch DingTalk ###ding
+: #!launch terminal ###tty
+: #!launch iDingTalk ###ding
 : #!dir ~ ###h
 
 * special
